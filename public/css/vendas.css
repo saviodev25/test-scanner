@@ -1,0 +1,47 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 40px;
+    background-color: #b4aeb2;
+    text-align: center;
+}
+
+h1 {
+    color: #242323;
+}
+
+input[type="text"] {
+    font-size: 1.2rem;
+    padding: 10px;
+    width: 300px;
+    margin-top: 30px;
+}
+
+.ver-vendidos {
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    background-color: #3490dc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#mensagem {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+#confirmarBtn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: none;
+}
+
+#confirmarBtn:hover {
+    background-color: #218838;
+}
