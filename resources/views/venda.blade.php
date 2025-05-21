@@ -52,7 +52,6 @@
         </button>
     </a>
     
-    
     <input 
         type="text" 
         id="codigo" 
@@ -63,7 +62,13 @@
 
     <p id="mensagem"></p>
     <button id="confirmarBtn">Confirmar Venda</button>
-    
+
+    <!-- DEFINIÇÕES GLOBAIS -->
+    <script>
+        const loja = @json($loja);
+        const csrfToken = '{{ csrf_token() }}';
+    </script>
+
     <script>
         const input = document.getElementById('codigo');
         const mensagem = document.getElementById('mensagem');
@@ -130,8 +135,6 @@
                 mensagem.style.color = 'red';
             });
         });
-
     </script>    
-                   
 </body>
 </html>
