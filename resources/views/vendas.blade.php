@@ -6,7 +6,7 @@
         body {
             font-family: Arial, sans-serif;
             padding: 20px;
-            background: #b4aeb2;
+            background: #dad5d5;
         }
         h1 {
             margin-bottom: 20px;

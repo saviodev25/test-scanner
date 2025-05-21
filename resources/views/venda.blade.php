@@ -7,7 +7,7 @@
         body {
             font-family: Arial, sans-serif;
             padding: 40px;
-            background-color: #b4aeb2;
+            background-color: #dad5d5;
             text-align: center;
         }
 
