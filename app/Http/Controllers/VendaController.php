@@ -14,6 +14,19 @@ class VendaController extends Controller
 
     public function registrar(Request $request, $loja)
     {
+        $request->validate([
+            'produto_id' => [
+                'required',          // O campo 'produto_id' é obrigatório
+                'integer',           // Deve ser um número inteiro
+                'exists:produtos,id' // Deve existir na coluna 'id' da tabela 'produtos'
+            ],
+        ], [
+            // Mensagens de erro personalizadas
+            'produto_id.required' => 'O ID do produto é obrigatório para registrar a venda.',
+            'produto_id.integer' => 'O ID do produto deve ser um número válido.',
+            'produto_id.exists' => 'O produto selecionado não foi encontrado no sistema.',
+        ]);
+
         // Captura o ID do produto que o frontend está enviando
         $produtoId = $request->input('produto_id');
     
@@ -60,18 +73,42 @@ class VendaController extends Controller
             return response()->json(['status' => 'erro', 'mensagem' => 'Nenhum produto encontrado com este código de barras.']);
         }
     }
-
-    
+    // Exemplo: No seu controller que lida com a rota /lista/vendas
 
     public function listarVendas()
     {
         $vendas = DB::table('vendas')
-            ->join('produtos', 'vendas.produto_id', '=', 'produtos.id')
-            ->select('produtos.nome', 'produtos.codigo_barras', 'produtos.referencia', 'produtos.cor', 'produtos.tamanho', 'vendas.loja', 'vendas.created_at')
-            ->orderByDesc('vendas.created_at')
-            ->get();
-    
+                    ->join('produtos', 'vendas.produto_id', '=', 'produtos.id')
+                    ->select(
+                        'vendas.id', // <-- ESSENCIAL: Certifique-se de selecionar o ID da venda aqui!
+                        'produtos.nome',
+                        'produtos.codigo_barras',
+                        'produtos.referencia', // Se você tiver essa coluna em produtos
+                        'produtos.tamanho',
+                        'produtos.cor',
+                        'vendas.loja',
+                        'vendas.created_at'
+                    )
+                    ->orderBy('vendas.created_at', 'desc') // Opcional: ordenar por data
+                    ->get();
+
         return view('vendas', compact('vendas'));
+    }
+    public function removerVenda($id)
+    {
+        // Busca a venda pelo ID. O método find() é otimizado para chaves primárias.
+        $venda = DB::table('vendas')->find($id);
+
+        if ($venda) {
+            // Se a venda for encontrada, a remove do banco de dados.
+            DB::table('vendas')->where('id', $id)->delete();
+
+            // Retorna uma resposta JSON de sucesso.
+            return response()->json(['status' => 'ok', 'mensagem' => 'Venda removida com sucesso.']);
+        } else {
+            // Se a venda não for encontrada, retorna um erro com status HTTP 404.
+            return response()->json(['status' => 'erro', 'mensagem' => 'Venda não encontrada.'], 404);
+        }
     }
     
 
