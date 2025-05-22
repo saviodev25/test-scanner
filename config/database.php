@@ -85,10 +85,10 @@ return [
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DB_URL'),
-            'host' => env('DB_HOST', ''),
+            'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'postgres'),
-            'username' => env('DB_USERNAME', 'postgres'),
+            'database' => env('DB_DATABASE', 'loja_virtual'),
+            'username' => env('DB_USERNAME', 'root1'),
             'password' => env('DB_PASSWORD', '#@1920SSs'),
             'charset' => env('DB_CHARSET', 'utf8'),
             'prefix' => '',
